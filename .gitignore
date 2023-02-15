@@ -1,0 +1,12 @@
+/venv/
+/.idea/
+/private/
+/secret/
+/files/
+todos.txt
+/build/
+/dist/
+/gui.spec
+/bonus/camera-photos/
+__pycache__/
+my-macs.txt
