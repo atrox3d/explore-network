@@ -9,7 +9,7 @@
 usage()
 {
 	echo "usage $(basename ${0}) [-d -p -c -l -s N -h]"
-    echo "where:
+	echo "where:
         -d  : delete arp cache (requires root)
         -p  : refresh, ping all local network 192.168.1.*
         -c  : enable clear screen
