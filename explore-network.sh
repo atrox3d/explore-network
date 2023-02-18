@@ -4,8 +4,13 @@ HERE="$(dirname ${0})"
 SCRIPT="$(basename ${0})"
 SECRET="${HERE}/secret"
 
+# load all functions
 source "${HERE}/.functions.sh"
+
+# load globals
 source "${HERE}/.defaults.sh"
+
+# parse command line options
 source "${HERE}/.options.sh"
 
 # delete arp cache as admin

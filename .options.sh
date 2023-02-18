@@ -8,17 +8,18 @@
 
 usage()
 {
-	echo "usage $(basename ${0}) [-d -p -c -l -s N]"
+	echo "usage $(basename ${0}) [-d -p -c -l -s N -h]"
     echo "where:
         -d  : delete arp cache (requires root)
         -p  : refresh, ping all local network 192.168.1.*
         -c  : enable clear screen
         -l  : enable loop, and sleep 5
-        -s N: set sleep time"
+        -s N: set sleep time
+        -h  : print this help and exits"
 }
 
 
-while getopts :dpcls: option
+while getopts :dpcls:h option
 do
 	case $option in
 		d)
@@ -33,6 +34,10 @@ do
 			LOOP=true
 			SLEEP_TIME=5
 			;;
+        h)
+            usage
+            exit
+            ;;
 		\?)
 			echo "ERROR | invalid option -${OPTARG}, exiting" >&2
 			usage
