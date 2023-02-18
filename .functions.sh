@@ -5,17 +5,6 @@
     exit 1
 }
 
-usage()
-{
-	echo "usage $(basename ${0}) [-d -r -c -l -s N]"
-    echo "where:
-        -d  : delete arp cache (requires root)
-        -r  : refresh, ping all local network 192.168.1.*
-        -c  : enable clear screen
-        -l  : enable loop, and sleep 5
-        -s N: set sleep time"
-}
-
 ping_network()
 {
     local NETWORK=192.168.1
