@@ -34,7 +34,7 @@ do
 			LOOP=true
 			SLEEP_TIME=5
 			;;
-        h)
+		h)
 			usage
 			exit
 			;;
