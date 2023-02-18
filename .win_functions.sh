@@ -14,7 +14,7 @@ ping_network()
     for addr in {1..255}
     do
         echo "INFO | pinging ${NETWORK}.${addr} in BG..."
-        ping ${NETWORK}.${addr} &> /dev/null &
+        ping -c 1 ${NETWORK}.${addr} &> /dev/null &
     done
 
     echo "INFO | waiting for processes..."
