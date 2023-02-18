@@ -1,5 +1,10 @@
 #!/bin/bash
 
+[ "${BASH_SOURCE[0]}" == "${0}" ] && {
+    echo "FATAL | this script must be sourced!"
+    exit 1
+}
+
 usage()
 {
 	echo "usage $(basename ${0}) [-d -r -c -l -s N]"

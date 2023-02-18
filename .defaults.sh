@@ -1,5 +1,10 @@
 #!/bin/bash
 
+[ "${BASH_SOURCE[0]}" == "${0}" ] && {
+    echo "FATAL | this script must be sourced!"
+    exit 1
+}
+
 CLEAR_SCREEN=false
 LOOP=false
 SLEEP_TIME=0

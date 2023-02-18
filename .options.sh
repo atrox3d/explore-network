@@ -1,5 +1,10 @@
 #!/bin/bash
 
+[ "${BASH_SOURCE[0]}" == "${0}" ] && {
+    echo "FATAL | this script must be sourced!"
+    exit 1
+}
+
 while getopts :drcls: option
 do
 	case $option in
