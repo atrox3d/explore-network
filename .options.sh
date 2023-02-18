@@ -8,24 +8,24 @@
 
 usage()
 {
-	echo "usage $(basename ${0}) [-d -r -c -l -s N]"
+	echo "usage $(basename ${0}) [-d -p -c -l -s N]"
     echo "where:
         -d  : delete arp cache (requires root)
-        -r  : refresh, ping all local network 192.168.1.*
+        -p  : refresh, ping all local network 192.168.1.*
         -c  : enable clear screen
         -l  : enable loop, and sleep 5
         -s N: set sleep time"
 }
 
 
-while getopts :drcls: option
+while getopts :dpcls: option
 do
 	case $option in
 		d)
 			echo "INFO | deleting arp cache as admin"
 			gsudo arp -d
 			;;
-		r)
+		p)
 			echo "INFO | pinging network..."
 			ping_network
 			;;
