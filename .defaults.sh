@@ -19,6 +19,7 @@ dump_vars()
         SLEEP_TIME
         DELETE_CACHE
         PING_NETWORK
+        OSTYPE
     )
     local deafault
     for default in "${DEFAULTS[@]}"
