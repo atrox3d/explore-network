@@ -8,6 +8,17 @@ source "${HERE}/.functions.sh"
 source "${HERE}/.defaults.sh"
 source "${HERE}/.options.sh"
 
+${DELETE_CACHE} && {
+	echo "INFO | deleting arp cache as admin"
+	gsudo arp -d
+}
+
+${PING_NETWORK} && {
+	echo "INFO | pinging network..."
+	ping_network
+}
+
+
 MAIN_LOOP=true
 while ${MAIN_LOOP}
 do

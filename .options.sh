@@ -22,23 +22,14 @@ while getopts :dpcls: option
 do
 	case $option in
 		d)
-			echo "INFO | deleting arp cache as admin"
-			gsudo arp -d
-			;;
+            DELETE_CACHE=true;;
 		p)
-			echo "INFO | pinging network..."
-			ping_network
-			;;
+            PING_NETWORK=true;;
 		c)
-			echo "INFO | enable CLEAR_SCREEN"
-			CLEAR_SCREEN=true
-			;;
+			CLEAR_SCREEN=true;;
 		s)
-			SLEEP_TIME=${OPTARG}
-			echo "INFO | SLEEP_TIME: ${SLEEP_TIME}"
-			;;
+			SLEEP_TIME=${OPTARG};;
 		l)
-			echo "INFO | LOOP enabled"
 			LOOP=true
 			SLEEP_TIME=5
 			;;
