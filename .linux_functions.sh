@@ -13,8 +13,8 @@ ping_network()
     local addr
     for addr in {1..255}
     do
-        echo "INFO | ping -n 1 ${NETWORK}.${addr} in BG..."
-        ping -n 1 ${NETWORK}.${addr} &> /dev/null &
+        echo "INFO | ping -c 1 ${NETWORK}.${addr} in BG..."
+        ping -c 1 ${NETWORK}.${addr} &> /dev/null &
     done
 
     echo "INFO | waiting for processes..."
