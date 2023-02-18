@@ -13,7 +13,7 @@ ping_network()
     local addr
     for addr in {1..255}
     do
-        echo "INFO | pinging ${NETWORK}.${addr} in BG..."
+        echo "INFO | ping -c 1 ${NETWORK}.${addr} in BG..."
         ping -c 1 ${NETWORK}.${addr} &> /dev/null &
     done
 
