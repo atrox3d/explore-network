@@ -23,9 +23,9 @@ while getopts :dpcls:h option
 do
 	case $option in
 		d)
-            DELETE_CACHE=true;;
+			DELETE_CACHE=true;;
 		p)
-            PING_NETWORK=true;;
+			PING_NETWORK=true;;
 		c)
 			CLEAR_SCREEN=true;;
 		s)
@@ -35,9 +35,9 @@ do
 			SLEEP_TIME=5
 			;;
         h)
-            usage
-            exit
-            ;;
+			usage
+			exit
+			;;
 		\?)
 			echo "ERROR | invalid option -${OPTARG}, exiting" >&2
 			usage
