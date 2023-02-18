@@ -8,19 +8,20 @@ source "${HERE}/.functions.sh"
 source "${HERE}/.defaults.sh"
 source "${HERE}/.options.sh"
 
-
 MAIN_LOOP=true
 while ${MAIN_LOOP}
 do
 	${CLEAR_SCREEN} && {
 		clear
-		echo "INFO | CLEAR_SCREEN enabled"
+		# echo "INFO | CLEAR_SCREEN enabled"
 	}
 
 	${LOOP} && {
-		echo "INFO | LOOP enabled"
+		# echo "INFO | LOOP enabled"
+		:
 	}
 
+	dump_vars
 	# *** ONELINER ***
 
 	# filters arp output by:
