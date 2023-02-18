@@ -8,62 +8,26 @@ source "${HERE}/.functions.sh"
 source "${HERE}/.defaults.sh"
 source "${HERE}/.options.sh"
 
-${DELETE_CACHE} && {
-	echo "INFO | deleting arp cache as admin"
-	gsudo arp -d
-}
+# delete arp cache as admin
+${DELETE_CACHE} && delete_arp_cache
 
-${PING_NETWORK} && {
-	echo "INFO | pinging network..."
-	ping_network
-}
-
+# ping every host in the network
+${PING_NETWORK} && ping_network
 
 MAIN_LOOP=true
 while ${MAIN_LOOP}
 do
-	${CLEAR_SCREEN} && {
-		clear
-		# echo "INFO | CLEAR_SCREEN enabled"
-	}
+	${CLEAR_SCREEN} && clear
 
-	${LOOP} && {
-		# echo "INFO | LOOP enabled"
-		:
-	}
-
+	# print all globals
 	dump_vars
-	# *** ONELINER ***
+	
+	# run arp filter
+	run_arp
+	
+	# wait for next loop, if looped
+	[ $SLEEP_TIME -gt 0 ] && sleep_timer
 
-	# filters arp output by:
-	#   - local network (included)
-	#   - list of macs (excluded)
-
-	# the list of macs is filtered separating macs from comments
-
-	# inside the process substitution:
-	#   - transform tabs to spaces
-    #   - squeezes multiple spaces into one
-    #   - cuts line at the space
-    #   - gets the first field
-    #   - excludes lines containing '#'
-
-	# cat secret/my-macs.txt | tr '\t' ' ' | tr -s ' ' | cut -d' ' -f1
-	arp -a | \
-	grep 192.168.1 | \
-	grep -i -v -f \
-	<(
-		cat "${SECRET}"/my-macs.txt | \
-		tr '\t' ' ' | \
-		tr -s ' ' | \
-		cut -d' ' -f1 | \
-		grep -v '#'
-	)
-
-	[ $SLEEP_TIME -gt 0 ] && {
-		echo "INFO | sleep ${SLEEP_TIME}"
-		sleep ${SLEEP_TIME}
-	}
-
+	# update MAIN_LOOP with LOOP option
 	MAIN_LOOP=${LOOP}
 done
