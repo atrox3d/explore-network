@@ -46,7 +46,7 @@ run_arp()
 	#   - excludes lines containing '#'
 
 	# cat secret/my-macs.txt | tr '\t' ' ' | tr -s ' ' | cut -d' ' -f1
-	arp -a | \
+	arp -n | \
 	grep 192.168.1 | \
 	grep -i -v -f \
 	<(
