@@ -6,13 +6,24 @@
 }
 
 CLEAR_SCREEN=false
+DELETE_CACHE=false
 LOOP=false
 SLEEP_TIME=0
+PING_NETWORK=false
 
 dump_vars()
 {
-    echo "INFO | CLEAR_SCREEN: ${CLEAR_SCREEN}"
-    echo "INFO | LOOP        : ${LOOP}"
-    echo "INFO | SLEEP_TIME  : ${SLEEP_TIME}"
-    echo "INFO | SECRET      : ${SECRET}"
+    local DEFAULTS=(
+        CLEAR_SCREEN
+        LOOP 
+        SLEEP_TIME
+        DELETE_CACHE
+        PING_NETWORK
+    )
+    local deafault
+    for default in "${DEFAULTS[@]}"
+    do
+        # use indirection ${!varname} to get values
+        printf 'INFO | %-15.15s: %s\n' "${default}" "${!default}"
+    done
 } >&2
