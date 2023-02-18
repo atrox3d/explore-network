@@ -29,9 +29,9 @@ ping_network()
     echo "INFO | done"
 }
 
-CLEAR_SCREEN=false
-LOOP=false
-SLEEP_TIME=0
+source "${HERE}/.defaults.sh"
+dump_vars
+exit
 
 while getopts :drcls: option
 do
