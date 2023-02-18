@@ -1,8 +1,5 @@
 #!/bin/bash
 
-HERE="$(dirname ${BASH_SOURCE[0]})"
-SECRET="${HERE}/secret"
-
 CLEAR_SCREEN=false
 LOOP=false
 SLEEP_TIME=0

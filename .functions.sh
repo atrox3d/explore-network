@@ -1,12 +1,8 @@
 #!/bin/bash
 
-HERE="$(dirname ${BASH_SOURCE[0]})"
-SECRET="${HERE}/secret"
-
-
 usage()
 {
-	echo "usage $(basename ${BASH_SOURCE[0]}) [-d -r -c -l -s N]"
+	echo "usage $(basename ${0}) [-d -r -c -l -s N]"
     echo "where:
         -d  : delete arp cache (requires root)
         -r  : refresh, ping all local network 192.168.1.*
