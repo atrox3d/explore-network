@@ -7,7 +7,7 @@
 
 ping_network()
 {
-	echo "INFO | pinging network..."
+    echo "INFO | pinging network..."
     local NETWORK=192.168.1
     local addr
     for addr in {1..255}
@@ -39,10 +39,10 @@ run_arp()
 
 	# inside the process substitution:
 	#   - transform tabs to spaces
-    #   - squeezes multiple spaces into one
-    #   - cuts line at the space
-    #   - gets the first field
-    #   - excludes lines containing '#'
+	#   - squeezes multiple spaces into one
+	#   - cuts line at the space
+	#   - gets the first field
+	#   - excludes lines containing '#'
 
 	# cat secret/my-macs.txt | tr '\t' ' ' | tr -s ' ' | cut -d' ' -f1
 	arp -a | \
