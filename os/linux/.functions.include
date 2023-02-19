@@ -27,7 +27,7 @@ function ping_network()
 function delete_arp_cache()
 {
 	info "deleting arp cache as admin"
-	sudo ip -s -s neigh flush
+	sudo ip -s -s neigh flush all
 }
 
 function run_arp()
