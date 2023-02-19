@@ -8,11 +8,16 @@ NAME="$(basename ${BASH_SOURCE[0]})"
 #	debug disabled - default
 #
 __LOGGER_DEBUG=no
+######################################################
 #
 #	debug helpers
 #
-function __DEBUG_ENABLE()  { __LOGGER_DEBUG=yes; }
-function __DEBUG_DISABLE() { __LOGGER_DEBUG=no; }
+######################################################
+function __DEBUG_ENABLE()  { __LOGGER_DEBUG=yes; }		# enable debug
+function __DEBUG_DISABLE() { __LOGGER_DEBUG=no; }		# disable debug
+#
+#	toggle enable status of debug
+#
 function __DEBUG_TOGGLE()
 {
 	case "${__LOGGER_DEBUG}" in
@@ -23,6 +28,9 @@ function __DEBUG_TOGGLE()
 			__LOGGER_DEBUG=yes
 		;;
 		*)
+			#
+			#	__LOGGER_DEBUG must be yes or no
+			#
 			echo "${BASH_SOURCE[0]} | FATAL | unknown __DEBUG status : '$_LOGGER_DEBUG'"
 			exit 1
 		;;
@@ -33,32 +41,58 @@ function __DEBUG_TOGGLE()
 #
 function __DEBUG()
 {
-	[ "${__LOGGER_DEBUG}" == "yes" ] && echo "__DEBUG | ${*}" &> /dev/stderr
+	if [ "${__LOGGER_DEBUG}" == "yes" ]
+	then
+		echo "__DEBUG | ${*}" &> /dev/stderr
+	fi
 }
-
-
-
-
+######################################################
+#
+# create associative and normal arrays
+#
+######################################################
+# associative arrays do not keep sort order:
+# 	echo ${!LOG_LEVELS[@]}: ERROR INFO WARNING FATAL SUPER DEBUG
+# 	echo ${LOG_LEVELS[@]} : 3 1 2 4 5 0
+#
+# so we use a normal array to keep that order
+# 	echo ${LOG_LEVELS_IDX[@]}: DEBUG INFO WARNING ERROR FATAL SUPER
+######################################################
 declare -A LOG_LEVELS=( [DEBUG]=0 [INFO]=1 [WARNING]=2 [ERROR]=3 [FATAL]=4 [SUPER]=5)
 declare -a LOG_LEVELS_IDX=( DEBUG INFO WARNING ERROR FATAL SUPER )
+
 DEFAULT_LEVEL="DEBUG"
 CURRENT_LEVEL="${DEFAULT_LEVEL}"
-
-
+######################################################
+#
+#
+#
+######################################################
 function logger_setlevel()
 {
+	# check first param
 	local level="${1:-UNSET}"
+	
+	# upper case first param
 	level="${level^^}"
+	
+	# normalize WARN to WARNING
 	[ "${level}" == "WARN" ] && level=WARNING
 
-	[ "${LOG_LEVELS[${level}]+EXISTS}" == EXISTS ] || {
+	# if $level is not in the keys exits
+	[ "${LOG_LEVELS[${level}]+EXISTS}" == "EXISTS" ] || {
 		fatal "logger_setlevel | unknown level ${level}"
 		exit 255
 	}
+	# update current global level
 	CURRENT_LEVEL="${level}"
 	
 	local _level 
 	local _levels=""
+	#
+	# loop through log levels sorted
+	# creates a string that surrounds with brackets enabled levels
+	#
 	for _level in "${LOG_LEVELS_IDX[@]}"
 	do
 		if [ "${_level}" == "${level}" ]
@@ -69,9 +103,15 @@ function logger_setlevel()
 	done
 	_levels="${_levels}]"
 	
+	# super can log always
 	super "logger_setlevel | ${_levels}"
 }
 
+######################################################
+#
+# returns the level number, given the level name
+#
+######################################################
 function logger_getlevelcode()
 {
 	local level="${1:-UNSET}"
@@ -85,6 +125,11 @@ function logger_getlevelcode()
 	return "${LOG_LEVELS[${level}]}"
 }
 
+######################################################
+#
+# checks and returns if the level is enabled
+#
+######################################################
 function logger_islevelenabled()
 {
 	local level="${1:-UNSET}"
@@ -102,9 +147,11 @@ function logger_islevelenabled()
 		return 1
 	}
 }
+######################################################
 #
 #	general log function
 #
+######################################################
 function log()
 {
 	#
@@ -135,12 +182,18 @@ function log()
 			#
 			[ "${_level}" == WARNING ] && _level=WARN
 			#
-			#	format level
+			#	returns if level is not enabled
 			#
 			logger_islevelenabled "${_level}" || return
+			#
+			#	format level
+			#
 			printf -v _level "%-5.5s" $_level
 		;;
 		*)
+			######################################################
+			# DEFENSIVE PROGRAMMING
+			######################################################
 			echo "${BASH_SOURCE[0]} | FATAL | unknown level name: '${_level}'"  >&2
 			exit 1
 		;;
@@ -152,7 +205,7 @@ function log()
 	if [ "${0}" = "bash" ]
 	then
 		#
-		#	sourcing from command line, force this script
+		#	sourcing from command line, force who to this script
 		#
 		_who="${BASH_SOURCE[0]}"
 	else
@@ -192,8 +245,9 @@ function test_logger()
 #
 if [ "${BASH_SOURCE[0]}" != "${0}" ]
 then
-	info "SOURCE | ${NAME} | ignoring params: ${@} | ok"
+	info "script SOURCED, not run directly | ${NAME} | ignoring params: '${@}' | ok"
 else
+	# script called DIRECTLY, eg logger.sh info "hello"
 	#
 	# check if level function exists
 	#
