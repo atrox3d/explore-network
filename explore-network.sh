@@ -5,13 +5,13 @@ SCRIPT="$(basename ${0})"
 SECRET="${HERE}/secret"
 
 # load all functions
-source "${HERE}/.loader.sh"
+source "${HERE}/.loader.include"
 
 # load globals
-source "${HERE}/.defaults.sh"
+source "${HERE}/.defaults.include"
 
 # parse command line options
-source "${HERE}/.options.sh"
+source "${HERE}/.options.include"
 
 # delete arp cache as admin
 ${DELETE_CACHE} && delete_arp_cache

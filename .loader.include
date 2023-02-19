@@ -29,15 +29,15 @@ OS_DIR="${HERE}/os/${OS}"
 #
 # os dependent functions
 #
-SOURCE_FILE="${OS_DIR}/.functions.sh"
-echo "INFO | .loader.sh | loading ${SOURCE_FILE}"
+SOURCE_FILE="${OS_DIR}/.functions.include"
+echo "INFO | .loader.include | loading ${SOURCE_FILE}"
 source "${SOURCE_FILE}"
 
 #
 # common functions
 #
-SOURCE_FILE="${HERE}/.functions.sh"
-echo "INFO | .loader.sh | loading ${SOURCE_FILE}"
+SOURCE_FILE="${HERE}/.functions.include"
+echo "INFO | .loader.include | loading ${SOURCE_FILE}"
 source "${SOURCE_FILE}"
 
 
