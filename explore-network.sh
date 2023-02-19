@@ -5,7 +5,7 @@ SCRIPT="$(basename ${0})"
 SECRET="${HERE}/secret"
 
 # load all functions
-source "${HERE}/.functions.sh"
+source "${HERE}/.loader.sh"
 
 # load globals
 source "${HERE}/.defaults.sh"
