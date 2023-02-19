@@ -11,9 +11,10 @@ function ping_network()
     info "pinging network..."
     local NETWORK=192.168.1
     local addr
+	info "pinging ${NETWORK}.{1..255}"
     for addr in {1..255}
     do
-        info "ping -c 1 ${NETWORK}.${addr} in BG..."
+        # info "ping -c 1 ${NETWORK}.${addr} in BG..."
         ping -c 1 ${NETWORK}.${addr} &> /dev/null &
     done
 
