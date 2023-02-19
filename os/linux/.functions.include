@@ -53,6 +53,7 @@ function run_arp()
 		cat "${SECRET}"/my-macs.txt | \
 		tr '\t' ' ' | \
 		tr -s ' ' | \
+		tr ':' '-' | \
 		cut -d' ' -f1 | \
 		grep -v '#'
 	)
