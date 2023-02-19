@@ -1,7 +1,7 @@
 #!/bin/bash
 
 [ "${BASH_SOURCE[0]}" == "${0}" ] && {
-    echo "FATAL | this script must be sourced!"
+    fatal "this script must be sourced!"
     exit 1
 }
 
@@ -25,6 +25,7 @@ dump_vars()
     for default in "${DEFAULTS[@]}"
     do
         # use indirection ${!varname} to get values
-        printf 'INFO | %-15.15s: %s\n' "${default}" "${!default}"
+        printf -v MESSAGE '%-15.15s: %s' "${default}" "${!default}"
+        info "${MESSAGE}"
     done
 } >&2

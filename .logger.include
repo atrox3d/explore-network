@@ -209,14 +209,27 @@ function log()
 		#
 		_who="${BASH_SOURCE[0]}"
 	else
-		_who="${0}"
+		# _who="${0}"
+		# _who="${BASH_SOURCE[2]}"
+		#
+		#	get the first caller that is not logger
+		#
+		for _who in "${BASH_SOURCE[@]}"
+		do
+			if [ "${_who}" != "${BASH_SOURCE[0]}" ]
+			then
+				break
+			fi
+		done
 	fi
 	
 	# printf -v _level "[%*.*s]" $_log_square_width $_log_square_width "$OPTARG"
 	local _formatted_who
-	printf -v _formatted_who "%16.16s" "$(basename ${_who})"
+	printf -v _formatted_who "%20.20s" "$(basename ${_who})"
 	
-	echo "${_datestamp} | ${_timestamp} | ${_formatted_who} | ${_level} | ${_message}" >&2
+	# echo "${_datestamp} | ${_timestamp} | ${_formatted_who} | ${_level} | ${_message}" >&2
+	# echo "${BASH_SOURCE[@]}"
+	echo "${_datestamp} ${_timestamp} | ${_formatted_who} | ${_level} | ${_message}" >&2
 }
 #
 # level helpers

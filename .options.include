@@ -1,15 +1,15 @@
 #!/bin/bash
 
 [ "${BASH_SOURCE[0]}" == "${0}" ] && {
-    echo "FATAL | this script must be sourced!"
+    fatal "this script must be sourced!"
     exit 1
 }
 
 
 function usage()
 {
-	echo "usage $(basename ${0}) [-d -p -c -l -s N -h]"
-	echo "where:
+	info "usage $(basename ${0}) [-d -p -c -l -s N -h]"
+	info "where:
         -d  : delete arp cache (requires root)
         -p  : refresh, ping all local network 192.168.1.*
         -c  : enable clear screen
