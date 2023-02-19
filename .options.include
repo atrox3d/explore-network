@@ -6,7 +6,7 @@
 }
 
 
-usage()
+function usage()
 {
 	echo "usage $(basename ${0}) [-d -p -c -l -s N -h]"
 	echo "where:

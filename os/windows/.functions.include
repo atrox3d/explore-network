@@ -6,7 +6,7 @@
 }
 
 
-ping_network()
+function ping_network()
 {
     echo "INFO | pinging network..."
     local NETWORK=192.168.1
@@ -22,13 +22,13 @@ ping_network()
     echo "INFO | done"
 }
 
-delete_arp_cache()
+function delete_arp_cache()
 {
 	echo "INFO | deleting arp cache as admin"
 	gsudo arp -d
 }
 
-run_arp()
+function run_arp()
 {
 	# *** ONELINER ***
 

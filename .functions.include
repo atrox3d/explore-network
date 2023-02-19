@@ -5,7 +5,7 @@
     exit 1
 }
 
-sleep_timer()
+function sleep_timer()
 {
     echo "INFO | sleep ${SLEEP_TIME}"
     sleep ${SLEEP_TIME}
