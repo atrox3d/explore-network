@@ -20,7 +20,7 @@ function ping_network()
 
     info "waiting for processes..."
     wait
-	sleep 10
+	sleep 2
     info "done"
 }
 
