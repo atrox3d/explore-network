@@ -10,3 +10,4 @@ todos.txt
 /bonus/camera-photos/
 __pycache__/
 my-macs.txt
+.DS_Store
